@@ -1,0 +1,1083 @@
+Save the code in Notepad as "Main.java". Open Command Prompt (cmd.exe), navigate to the directory where you saved your file, and type "javac Main.java":
+
+C:\Users\Your Name>javac Main.java
+This will compile your code. If there are no errors in the code, the command prompt will take you to the next line. Now, type "java Main" to run the file:
+
+C:\Users\Your Name>java Main
+
+Kewords
+try: Java try keyword is used to start a block of code that will be tested for exceptions. 
+The try block must be followed by either catch or finally block.
+
+***********
+Java finally block is a block used to execute important code such as closing the connection, etc.
+Java finally block is always executed whether an exception is handled or not. 
+Therefore, it contains all the necessary statements that need to be printed regardless of the exception occurs or not.
+
+****************
+
+The super keyword in Java is a reference variable which is used to refer immediate parent class object.
+Whenever you create the instance of subclass, an instance of parent class is created implicitly which is referred by super reference variable.
+
+1) super is used to refer immediate parent class instance variable.
+We can use super keyword to access the data member or field of parent class. 
+It is used if parent class and child class have same fields.
+class Animal{  
+String color="white";  
+}  
+class Dog extends Animal{  
+String color="black";  
+void printColor(){  
+System.out.println(color);//prints color of Dog class  
+System.out.println(super.color);//prints color of Animal class  
+}  
+}  
+class TestSuper1{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+d.printColor();  
+}}  
+
+2) super can be used to invoke parent class method
+The super keyword can also be used to invoke parent class method. 
+It should be used if subclass contains the same method as parent class. In other words, it is used if method is overridden.
+
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void eat(){System.out.println("eating bread...");}  
+void bark(){System.out.println("barking...");}  
+void work(){  
+super.eat();  
+bark();  
+}  
+}  
+class TestSuper2{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+d.work();  
+}}  
+
+3) super is used to invoke parent class constructor.
+The super keyword can also be used to invoke the parent class constructor.
+To call the parent class constructor in child class constructor we simply write super() keyword in child class constructor, or
+even if u dont write super() in child constuctor, complier will bydefault take super() keyword therby calling parent class constructor
+
+class Animal{  
+Animal().............................// this is constuctor of parent class
+{
+System.out.println("animal is created");}  
+}  
+class Dog extends Animal{  
+Dog().............................// this is constuctor of child class
+{  
+super(); ......................//no need to write it explicitly. And if written then must be always 1st stmt ie u cannot write syso stmt 1st and then super(). 
+System.out.println("dog is created");  
+}  
+}  
+class TestSuper3{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+}}  
+---------------
+super example: real use
+Let's see the real use of super keyword. Here, 
+Emp class inherits Person class so all the properties of Person will be inherited to Emp by default. 
+To initialize all the property, we are using parent class constructor from child class. 
+In such way, we are reusing the parent class constructor.
+
+class Person{  
+int id;  
+String name;  
+Person(int id,String name){  
+this.id=id;  
+this.name=name;  
+}  
+}  
+class Emp extends Person{  
+float salary;  
+Emp(int id,String name,float salary){  
+super(id,name);//reusing parent constructor  
+this.salary=salary;  
+}  
+void display(){System.out.println(id+" "+name+" "+salary);}  
+}  
+class TestSuper5{  
+public static void main(String[] args){  
+Emp e1=new Emp(1,"ankit",45000f);  
+e1.display();  
+}}  
+
+Output:
+
+1 ankit 45000
+
+*******************
+throw: The Java throw keyword is used to explicitly throw an exception. The throw keyword is mainly used to throw custom exceptions. It is followed by an instance.
+throws: The Java throws keyword is used to declare an exception. Checked exceptions can be propagated with throws.
+
+Final Variables
+If you don't want others (or yourself) to overwrite existing values, use the final keyword (this will declare the variable as "final" or "constant", which means unchangeable and read-only):
+
+class Demo
+{
+int data=50;//instance variable..........can be access througout the class except in static mthds
+static int a = 10; // class variable and static variable.....can be access througout the class
+void method()
+{
+int n=90;//local variable ...............only inside the mthd / block
+}
+}//end of class
+
+Example
+final int myNum = 15;
+myNum = 20;  // will generate an error: cannot assign a value to a final variable
+
+Scanner sc = new Scanner(System.in);
+//		System.out.println("enter a no. between 1 to 7 as a weekday");
+//		int a = sc.nextInt();
+		char op = sc.next().charAt(0); // to get single char viz +,- etc
+		sc.close();
+		
+
+Data types are divided into two groups:
+
+Primitive data types - includes byte, short, int, long, float, double, boolean and char
+Non-primitive data types - such as String, Arrays and Classes (you will learn more about these in a later chapter)
+Primitive Data Types
+A primitive data type specifies the size and type of variable values, and it has no additional methods.
+
+There are eight primitive data types in Java:
+
+	Data Type			Size	
+	byte	    		1 byte	
+	short = char	    2 bytes	
+	int	 = float	    4 bytes	
+	long = double	    8 bytes	
+	boolean	   			1 bit	
+	
+long myNum = 15000000000L;
+The float and double data types can store fractional numbers. Note that you should end the value with an "f" for floats and "d" for doubles:
+float myNum = 5.75f;
+System.out.println(myNum);
+
+ The precision of float is only six or seven decimal digits, while double variables have a precision of about 15 digits. 
+ Therefore it is safer to use double for most calculations.
+
+The main difference between primitive and non-primitive data types are:
+
+Primitive types are predefined (already defined) in Java. Non-primitive types are created by the programmer and is not defined by Java (except for String).
+Non-primitive types can be used to call methods to perform certain operations, while primitive types cannot.
+A primitive type has always a value, while non-primitive types can be null.
+A primitive type starts with a lowercase letter, while non-primitive types starts with an uppercase letter.
+The size of a primitive type depends on the data type, while non-primitive types have all the same size.
+Examples of non-primitive types are Strings, Arrays, Classes, Interface, etc.
+
+ double myDouble = myInt; // Automatic casting: int to double
+
+    System.out.println(myInt);      // Outputs 9
+    System.out.println(myDouble);   // Outputs 9.0
+	
+	
+	 double myDouble = 9.78d;
+    int myInt = (int) myDouble; // Manual casting: double to int
+
+    System.out.println(myDouble);   // Outputs 9.78
+    System.out.println(myInt);      // Outputs 9
+	
+Java divides the operators into the following groups:
+
+Arithmetic operators
+
+Operator	
+		+	
+		-	
+		*	
+		/	
+		%	
+		++	
+		--	
+
+Assignment operators
+Operator	Example	Same As	Try it
+		=	x = 5	x = 5	
+		+=	x += 3	x = x + 3	
+		-=	x -= 3	x = x - 3	
+		*=	x *= 3	x = x * 3	
+		/=	x /= 3	x = x / 3	
+		%=	x %= 3	x = x % 3
+
+Comparison operators
+
+The return value of a comparison is either true or false
+
+Operator	Name	Example	Try it
+		==	Equal to	x == y	
+		!=	Not equal	x != y	
+		>	Greater than	x > y	
+		<	Less than	x < y	
+		>=	Greater than or equal to	x >= y	
+		<=	Less than or equal to	x <= y
+
+
+Logical operators
+
+Operator	Name		Description	Example	Try it
+&& 	      Logical and	Returns true if both statements are true	x < 5 &&  x < 10	
+|| 	      Logical or	Returns true if one of the statements is true	x < 5 || x < 4	
+!	      Logical not	Reverse the result, returns false if the result is true	!(x < 5 && x < 10)
+
+
+Bitwise operators
+
+// Initial values
+        int a = 5;
+        int b = 7;
+ 
+        // bitwise and
+        // 0101 & 0111=0101 = 5
+        System.out.println("a&b = " + (a & b));
+		
+		Output
+			a&b = 5
+
+	&=	x &= 3	x = x & 3	
+	|=	x |= 3	x = x | 3	
+	^=	x ^= 3	x = x ^ 3	
+	>>=	x >>= 3	x = x >> 3	
+	<<=	x <<= 3	x = x << 3	
+	
+	
+String Operations
+String str1 = "Rudra rao" ,str2 ="Welcome Rudra to java";
+		System.out.println("Uppercase =" + str1.toUpperCase());
+		System.out.println("Lowercase =" + str2.toLowerCase());
+		System.out.println("Length =" + str1.length());
+		System.out.println("Concatenate =" + str1.concat(str2));
+		System.out.println("Concatenate =" + str1+str2);
+		System.out.println("Equals = " + str1.equals(str2));//returns T or F, but also compares case.
+		System.out.println("Equals = " + str1.equals(str1));
+		System.out.println("Equals = " + (str1==str2));
+		System.out.println("Equals Ignore Case =" + str1.equalsIgnoreCase(str2));
+		System.out.println("Equals Ignore Case =" + str1.equalsIgnoreCase("rudra"));
+		System.out.println("Contains =" + str2.contains(str1) );//used to find reqd words from web application while testing
+		System.out.println("Contains =" + str2.contains("Rudra"));
+		System.out.println("Replace = " + str1.replace('u','o'));
+		System.out.println("Replace = " + str2.replace("Rudra","Ram"));
+		System.out.println("Replace = " + str1.replaceFirst(str1, str2));
+		System.out.println("Substring =" + str2.substring(9));
+		System.out.println("Substring =" + str2.substring(8, 13));// returns 0 to n-1 & used to get any substring from main string
+		System.out.println("CharAt =" + str1.charAt(0));
+		
+		StringBuffer sb = new StringBuffer("Welcome");
+		System.out.println("Reverse =" +sb.reverse());
+
+		Output
+			Uppercase =RUDRA RAO
+			Lowercase =welcome rudra to java knknk
+			Length =9
+			Concatenate =Rudra raoWelcome Rudra to java knknk
+			Concatenate =Rudra raoWelcome Rudra to java knknk
+			Equals = false
+			Equals = true
+			Equals = false
+			Equals Ignore Case =false
+			Equals Ignore Case =false
+			Contains =false
+			Contains =true
+			Replace = Rodra rao
+			Replace = Welcome Ram to java knknk
+			Replace = Welcome Rudra to java knknk
+			Substring =udra to java knknk
+			Substring =Rudra
+			CharAt =R
+			Reverse =emocleW
+			
+The indexOf() method returns the index (the position) of the first occurrence of a specified text in a string (including whitespace):
+
+Example
+String txt = "Please locate where 'locate' occurs!";
+System.out.println(txt.indexOf("locate")); // Outputs 7
+
+Java counts positions from zero.
+0 is the first position in a string, 1 is the second, 2 is the third ...
+
+ String x = "10";
+    int y = 20;
+    int z = x + y;..............INVALID ERROR
+
+  String x = "10";
+    int y = 20;
+    String z = x + y;..............1020
+	
+	
+String txt = "We are the so-called "Vikings" from the north.";...error
+The solution to avoid this problem, is to use the backslash escape character.
+
+String txt = "We are the so-called \"Vikings\" from the north.";
+
+Escape character	Result	Description
+	\'                 '	Single quote
+	\"                 "	Double quote
+	\\                 \	Backslash
+
+public class Main {
+  public static void main(String[] args) {
+    String txt = "Hello\nWorld!";
+    System.out.println(txt);
+  }
+}
+
+Integer myInt = 5; 
+    Double myDouble = 5.99; 
+    Character myChar = 'A'; 
+    System.out.println(myInt.doubleValue());  5.0
+    System.out.println(myDouble.intValue());	5	
+    System.out.println(myChar.charValue());		A
+	
+Math. max(x,y), min, sqrt, 	
+Math.random() returns a random number between 0.0 (inclusive), and 1.0 (exclusive):
+
+int time = 20;
+String result = (time < 18) ? "Good day." : "Good evening.";
+System.out.println(result);
+
+SWITCH 
+A break can save a lot of execution time because it "ignores" the execution of all the rest of the code in the switch block.
+
+int day = 4;
+switch (day) 
+{
+  case 1:
+    System.out.println("Monday");
+    break;
+  case 2:
+    System.out.println("Tuesday");
+    break;
+	
+  default:
+   stmt;
+ }   
+ 
+ LOOPS
+ 
+ int i = 0;
+while (i < 5) {
+  System.out.println(i);
+  i++;
+}
+
+int i = 0;
+do {
+  System.out.println(i);
+  i++;
+}
+while (i < 5);
+
+Note: Do not forget to increase the variable used in the condition, otherwise the loop will never end!
+
+// Outer loop
+for (int i = 1; i <= 2; i++) {
+  System.out.println("Outer: " + i); // Executes 2 times
+  
+  // Inner loop
+  for (int j = 1; j <= 3; j++) {
+    System.out.println(" Inner: " + j); // Executes 6 times (2 * 3)
+  }
+} 
+
+There is also a "for-each" loop, which is used exclusively to loop through elements in an array:
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (String i : cars) {
+  System.out.println(i);
+}
+
+break stmt
+public class Main {
+  public static void main(String[] args) {
+    for (int i = 0; i < 10; i++) {
+      if (i == 4) {
+        break;
+      }
+      System.out.println(i);
+    }  
+  }
+}
+
+o/p = 0 to 3
+
+continue 
+public class Main {
+  public static void main(String[] args) {
+    for (int i = 0; i < 10; i++) {
+      if (i == 4) {
+        continue;
+      }
+      System.out.println(i);
+    }  
+  }
+}
+The continue statement breaks one iteration (in the loop), if a specified condition occurs, 
+and continues with the next iteration in the loop.
+
+This example skips the value of 4:
+
+o/p = 0 to 9 except 4
+
+ARRAYS
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+System.out.println(cars.length);
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (int i = 0; i < cars.length; i++) {
+  System.out.println(cars[i]);
+}
+
+int a[] = new int [5];
+		int n = a.length;
+		a[0]=10; a[1]=20; a[2]=30; a[3]=40; a[4]=50;
+		for (int i=0;i<n;i++)
+		{
+			System.out.println(a[i]);..................// here i refers index value
+		}
+		
+		
+		int a[]= {10,900,30,40,50}; // direct way of array declrn
+		for (int i:a)              //for-each loop is used to fetch elements from an array
+		{                          //this will get each element frm a & will store in i.
+			
+			System.out.println(i);........// here i refers value and not index
+		}
+		
+
+METHODS
+
+1.STATIC (NO PARAM NO RETURN)
+public class Main {
+  static void myMethod() {
+    System.out.println("I just got executed!");
+  }
+
+  public static void main(String[] args) {
+    myMethod();......................................// no need to create obj of the class to call static mthd
+  }
+}		
+
+A method can also be called multiple times:
+
+
+
+2. WITH PARAM NO Returns
+
+public class Main {
+  static void myMethod(String fname, int age) {
+    System.out.println(fname + " is " + age);
+  }
+
+  public static void main(String[] args) {
+    myMethod("Liam", 5);
+    myMethod("Jenny", 8);
+    myMethod("Anja", 31);
+  }
+}  
+ fname is a parameter, while Liam, Jenny and Anja are arguments.
+ Note that when you are working with multiple parameters, the method call must have the same number of arguments as 
+ there are parameters, 
+ and the arguments must be passed in the same order. 
+
+3. WITH PARAM WITH RETURN  
+
+public class Main {
+  static int myMethod(int x, int y) {
+    return x + y;
+  }
+
+  public static void main(String[] args) {
+    int z = myMethod(5, 3);
+    System.out.println(z);
+  }
+}
+
+4. NO PARAM WITH RETURN ....INVALID
+
+=========================
+how to write mthd
+accessModifier static(optional) returnType mthdname(params optional inside mthd)
+     |            |               |			  |					|
+public         static            int 		dum			(int a, int b)
+{
+ stmts;
+ return x; //optional
+ }
+ 
+============JAVA STATIC MTHD/ATTRIBUTE=================================================================
+
+The static keyword in Java is used for memory management mainly. 
+We can apply static keyword with variables, methods, blocks and nested classes. 
+
+*********************JAVA STATIC MTHD***********
+
+Java static method
+If you apply static keyword with any method, it is known as static method.
+
+A static method belongs to the class rather than the object of a class.
+A static method can be invoked without the need for creating an instance of a class.
+A static method can access static data member and can change the value of it.
+
+class Student{
+     int rollno;
+     String name;
+     static String college = "ITS";
+     
+     static void change(){
+     college = "BBDIT";
+     }
+
+     Student(int r, String n){
+     rollno = r;
+     name = n;
+     }
+
+     void display(){System.out.println(rollno+" "+name+" "+college);}
+}
+public class TestStaticMethod{
+    public static void main(String args[]){
+    Student.change();//calling change method.........// to call static mthd from other class u need to write that other_class_name.static_mthd_name 
+    //creating objects
+    Student s1 = new Student(111,"Karan");
+    Student s2 = new Student(222,"Aryan");
+    Student s3 = new Student(333,"Sonoo");
+    //calling display method
+    s1.display();
+    s2.display();
+    s3.display();
+    }
+}
+NOte ; to call static mthd in same class u dont need to write classname.static_mthdname & neither u need to create any obj. to call that sttaic mthd.
+
+***************************Calling static mthd in same class*******************
+class Calculate{  
+  static int cube(int x){  
+  return x*x*x;  
+  }  
+  
+  public static void main(String args[]){  
+  int result=cube(5);  ................class name not reqd to call static mthd cube()
+  System.out.println(result);  
+  }  
+} 
+
+********************compile error  CODE*********
+class Student{
+     int rollno;
+     String name;
+     static String college = "ITS";
+     
+     static void change(){
+     college = "BBDIT";
+     }
+
+     Student(int r, String n){
+     rollno = r;
+     name = n;
+     }
+
+     void display(){System.out.println(rollno+" "+name+" "+college);}
+}
+public class TestStaticMethod{
+    public static void main(String args[]){
+    change();//					......................will give compile errror as change() mthd is of other class(Student.java class)
+    //creating objects
+    Student s1 = new Student(111,"Karan");
+    Student s2 = new Student(222,"Aryan");
+    Student s3 = new Student(333,"Sonoo");
+    //calling display method
+    s1.display();
+    s2.display();
+    s3.display();
+    }
+}
+***************Memory management code*********
+
+Program of the counter "without" static variable
+In this example, we have created an instance variable named count which is incremented in the constructor. Since instance variable gets the memory at the time of object creation, each object will have the copy of the instance variable. If it is incremented, it won't reflect other objects. So each object will have the value 1 in the count variable.
+
+//Java Program to demonstrate the use of an instance variable  
+//which get memory each time when we create an object of the class.  
+class Counter{  
+int count=0;//will get memory each time when the instance is created  
+  
+Counter(){  
+count++;//incrementing value  
+System.out.println(count);  
+}  
+  
+public static void main(String args[]){  
+//Creating objects  
+Counter c1=new Counter();  
+Counter c2=new Counter();  
+Counter c3=new Counter();  
+}  
+}  
+Test it Now
+Output:
+
+1
+1
+1
+
+Program of counter "with" static variable
+As we have mentioned above, static variable will get the memory only once, if any object changes the value of the static variable, it will retain its value.
+
+//Java Program to illustrate the use of static variable which  
+//is shared with all objects.  
+class Counter2{  
+static int count=0;//will get memory only once and retain its value  
+  
+Counter2(){  
+count++;//incrementing the value of static variable  
+System.out.println(count);  
+}  
+  
+public static void main(String args[]){  
+//creating objects  
+Counter2 c1=new Counter2();  
+Counter2 c2=new Counter2();  
+Counter2 c3=new Counter2();  
+}  
+}  
+Test it Now
+Output:
+
+1
+2
+3
+*************************************Scope for static & non static mthds / varbs**********
+***refer JAVA DOCX to refer egs for below stmts
+1.To call non static stuffs (methods / variables) into static method, we hv to call them using object.
+2.To call static stuffs (methods / variables) into static method in same class, we don’t need to create obj, we can call them directly.
+3.To call static stuffs (methods / variables) into static method of another class, we don’t need to create obj, but need to write classname.stuff of the class from where that static stuffs is to be called.
+4.Non static mthds can access every thing (static / non static stuffs) directly without creating any object.
+5.this and super cannot be used in static context.
+
+Q) Why is the Java main method static?
+Ans) It is because the object is not required to call a static method. If it were a non-static method, 
+     JVM creates an object first then call main() method that will lead the problem of extra memory allocation.
+	 
+**************************JAVA STATIC BLOCK******
+ Java static block
+Is used to initialize the static data member.
+It is executed before the main method at the time of classloading.
+
+Example of static block
+class A2{  
+  static{System.out.println("static block is invoked");}  
+  public static void main(String args[]){  
+   System.out.println("Hello main");  
+  }  
+}  
+Test it Now
+Output:static block is invoked
+       Hello main	 
+
+ 
+ 
+===============================================================================
+Method Overloading
+With method overloading, multiple methods can have the same name with different parameters:
+
+Note: Multiple methods can have the same name as long as the number and/or type of parameters are different.
+
+OOPS
+- possible to reuse and maintain the codes
+
+-You should extract out the codes that are common for the application, 
+ and place them at a single place and reuse them instead of repeating it.
+ Like 
+ 
+Class is a logical template to create objects that share common properties and methods, 
+and an object is an instance of a class.
+
+When the individual objects are created, they inherit all the variables and methods from the class.
+Class is a blueprint which defines some properties and behaviors. An object is an instance of a class which has those properties and behaviours attached. A class is not allocated memory when it is defined. 
+An object is allocated memory when it is created. Class is a logical entity whereas objects are physical entities.
+
+Create obj
+public class Main {
+  int x = 5;
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    System.out.println(myObj.x);
+  }
+}
+
+You can also create an object of a class and access it in another class. 
+This is often used for better organization of classes (one class has all the attributes and methods, while the other class holds the main() method (code to be executed)).
+
+Remember that the name of the java file should match the class name.
+
+In this example, we have created two files in the same directory/folder:
+
+Main.java
+Second.java
+
+Main.java >>>>
+
+public class Main {
+  int x = 5;
+}
+
+
+Second.java >>>>
+
+class Second {
+  public static void main(String[] args) {
+    Main myObj = new Main();
+    System.out.println(myObj.x);
+  }
+}
+
+public class Main {
+   public void myMethod() {
+    System.out.println("Hello World!");
+  }
+
+  public static void main(String[] args) {
+   Main b = new Main();
+   b.myMethod();
+  }
+}
+
+================ 
+class attributes are variables within a class:
+
+Example
+Create a class called "Main" with two attributes: x and y:
+
+public class Main {
+  int x = 5;
+  int y = 3;
+}
+You can access attributes by creating an object of the class, and by using the dot syntax (.):
+
+The final keyword is useful when you want a variable to always store the same value, like PI (3.14159...).
+
+The final keyword is called a "modifier". 
+
+==========================================================================================
+Constructor
+Same name as class name
+Used to initialize the values of class attributes( variables)
+The constructor is called when an object of a class is created. 
+Main myObj = new Main(); // Create an object of class Main (This will call the constructor)
+It cannot have a return type (like void).
+A Java constructor cannot be abstract, static, final, and synchronized But We can use access modifiers while declaring
+a constructor. It controls the object creation. In other words, we can have private, protected, public or default constructor
+in Java.
+
+// Create a Main class
+public class Main {
+  int x;  // Create a class attribute
+
+  // Create a class constructor for the Main class
+  public Main() {
+    x = 5;  // Set the initial value for the class attribute x
+  }
+
+  public static void main(String[] args) {
+    Main myObj = new Main(); // Create an object of class Main (This will call the constructor)
+    System.out.println(myObj.x); // Print the value of x.............// here obj is used to call the variable x , bcauz that varb is non-static
+  }
+}
+
+// Outputs 5
+
+=========== used static varb . so myObj is not used while calling that varb. in syso.=================
+// Create a Main class
+public class Main {
+  static int x;
+
+  // Create a class constructor for the Main class
+  public Main() {
+      x = 5;
+  }
+
+  public static void main(String[] args) {
+    Main myObj = new Main();
+   System.out.println(x);
+  }
+}
+
+================================================
+Types of Java constructors
+There are two types of constructors in Java:
+
+Default constructor (NON Parameterized constructor)
+Parameterized constructor
+
+Rule: If there is no constructor in a class, compiler automatically creates a default constructor.
+Q) What is the purpose of a default constructor?
+The default constructor is used to provide the default values to the object like 0, null, etc., depending on the type.
+Hence in normal prgms also when u dont initialize a varb, java by default set that varb value = 0(for integer), 
+this is internally done using constructor.
+
+Default con
+class Bike1{  
+//creating a default constructor  
+Bike1()
+{
+System.out.println("Bike is created");
+}  
+//main method  
+public static void main(String args[]){  
+//calling a default constructor  
+Bike1 b=new Bike1();  
+}  
+}  
+
+Parameterized constructor
+A constructor which has a specific number of parameters is called a parameterized constructor.
+
+Why use the parameterized constructor?
+The parameterized constructor is used to provide different values to distinct objects. 
+However, you can provide the same values also (using this keyword).
+
+class Student4{  
+    int id;  
+    String name;  
+    //creating a parameterized constructor  
+    Student4(int i,String n)
+	{  
+    id = i;   ............// we hv to do this as inside constructor we set the the values of the class attributes (variables)
+    name = n;  
+    }  
+		***************************
+	//if we hv to use same varb names for constructor parameters as that of class, then use this keyword
+	
+	Student4(int id,String name)
+	{  
+    this.id = id;   
+    this.name = name;  
+    } 
+		***************************
+		
+    //method to display the values  
+    void display(){System.out.println(id+" "+name);}  
+   
+    public static void main(String args[]){  
+    //creating objects and passing values  
+    Student4 s1 = new Student4(111,"Karan");  
+    Student4 s2 = new Student4(222,"Aryan");  
+    //calling method to display the values of object  
+    s1.display();  
+    s2.display();  
+   }  
+}  
+
+Constructor Overloading in Java
+In Java, a constructor is just like a method but without return type. It can also be overloaded like Java methods.
+
+Constructor overloading in Java is a technique of having more than one constructor with different parameter lists. 
+They are arranged in a way that each constructor performs a different task. 
+They are differentiated by the compiler by the number of parameters in the list and their types.
+
+=====================================================================
+Modifiers
+
+Access modifier used to set the access level for classes, attributes, methods and constructors.
+
+We divide modifiers into two groups:
+
+Access Modifiers - controls the access level
+Non-Access Modifiers - do not control access level, but provides other functionality
+
+*************Access Modifiers
+
+For classes, you can use either public or default:
+
+Modifier	Description	
+
+public		The class is accessible by any other class	
+default		The class is only accessible by classes in the same package. This is used when you don't specify a modifier. 
+			You will learn more about packages in the Packages chapter	
+			
+For attributes, methods and constructors, you can use the one of the following:
+
+Modifier	Description	
+
+public	    The code is accessible for all classes	
+private	    The code is only accessible within the declared class	
+default	    The code is only accessible in the same package. This is used when you don't specify a modifier.
+			You will learn more about packages in the Packages chapter	
+protected	The code is accessible in the same package and subclasses. 
+			You will learn more about subclasses and superclasses in the Inheritance chapter	
+			
+
+***************Non-Access Modifiers
+
+For classes, you can use either final or abstract:
+
+Modifier	Description	
+
+final		The class cannot be inherited by other classes (You will learn more about inheritance in the Inheritance chapter)	
+abstract	The class cannot be used to create objects (To access an abstract class, it must be inherited from another class. You will learn more about inheritance and abstraction in the Inheritance and Abstraction chapters)	
+
+For attributes and methods, you can use the one of the following:
+
+Modifier	  Description
+			  
+final		  Attributes and methods cannot be overridden/modified
+static		  Attributes and methods belongs to the class, rather than an object
+abstract	  Can only be used in an abstract class, and can only be used on methods. 
+			  The method does not have a body, for example abstract void run();. 
+			  The body is provided by the subclass (inherited from). 
+		
+transient	  Attributes and methods are skipped when serializing the object containing them
+synchronized  Methods can only be accessed by one thread at a time
+volatile	  The value of an attribute is not cached thread-locally, and is always read from the "main memory"
+
+			
+Encapsulation in Java is a process of wrapping code and data together into a single unit, 
+We can create a fully encapsulated class in Java by making all the data members of the class private. 
+Now we can use setter and getter methods to set and get the data in it.
+
+By providing only a setter or getter method, you can make the class read-only or write-only. 
+In other words, you can skip the getter or setter methods.
+
+File: Student.java
+//A Java class which is a fully encapsulated class.  
+//It has a private data member and getter and setter methods.  
+package com.javatpoint;  
+public class Student{  
+//private data member  
+private String name;  
+//getter method for name  
+public String getName(){  
+return name;  
+}  
+//setter method for name  
+public void setName(String name){  
+this.name=name  
+}  
+}  
+
+
+File: Test.java
+
+//A Java class to test the encapsulated class.  
+package com.javatpoint;  
+class Test{  
+public static void main(String[] args){  
+//creating instance of the encapsulated class  
+Student s=new Student();  
+//setting value in the name member  
+s.setName("vijay");  
+//getting value of the name member  
+System.out.println(s.getName());  
+}  
+}  
+
+Read-Only class
+//A Java class which has only getter methods.  
+public class Student{  
+//private data member  
+private String college="AKG";  
+//getter method for college  
+public String getCollege(){  
+return college;  
+}  
+}  
+Now, you can't change the value of the college data member which is "AKG".
+
+s.setCollege("KITE");//will render compile time error  
+
+
+Write-Only class
+//A Java class which has only setter methods.  
+public class Student{  
+//private data member  
+private String college;  
+//getter method for college  
+public void setCollege(String college){  
+this.college=college;  
+}  
+}  
+
+Now, you can't get the value of the college, you can only change the value of college data member.
+
+System.out.println(s.getCollege());//Compile Time Error, because there is no such method  
+System.out.println(s.college);//Compile Time Error, because the college data member is private.   
+//So, it can't be accessed from outside the class  
+
+Method Overloading and Type Promotion
+One type is promoted to another implicitly if no matching datatype is found.
+byte can be promoted to short, int, long, float or double. 
+The short datatype can be promoted to int, long, float or double. 
+Int to long, float or double.
+The char datatype can be promoted to int,long,float or double and so on.
+------------------
+class OverloadingCalculation1{  
+  void sum(int a,long b){System.out.println(a+b);}  
+  void sum(int a,int b,int c){System.out.println(a+b+c);}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation1 obj=new OverloadingCalculation1();  
+  obj.sum(20,20);//now second int literal will be promoted to long  
+  obj.sum(20,20,20);  
+  
+  }  
+}  
+-----------------
+Example of Method Overloading with Type Promotion if matching found
+If there are matching type arguments in the method, type promotion is not performed.
+
+class OverloadingCalculation2{  
+  void sum(int a,int b){System.out.println("int arg method invoked");}  
+  void sum(long a,long b){System.out.println("long arg method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation2 obj=new OverloadingCalculation2();  
+  obj.sum(20,20);//now int arg sum() method gets invoked  
+  }  
+}  
+----------------------
+
+Example of Method Overloading with Type Promotion in case of ambiguity
+If there are no matching type arguments in the method, and each method promotes similar number of arguments, there will be ambiguity.
+
+
+class OverloadingCalculation3{  
+  void sum(int a,long b){System.out.println("a method invoked");}  
+  void sum(long a,int b){System.out.println("b method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation3 obj=new OverloadingCalculation3();  
+  obj.sum(20,20);//now ambiguity  
+  }  
+}  
+
+One type is not de-promoted implicitly for example double cannot be depromoted to any type implicitly.
+
+=============================OVERRIDING=============================
+Method Overriding in Java
+If subclass (child class) has the same method as declared in the parent class, it is known as method overriding in Java.
+
+Usage of Java Method Overriding
+Method overriding is used to provide the specific implementation of a method which is already provided by its superclass.
+Method overriding is used for runtime polymorphism
+
+
+
+
+
+
+
+
+
+
+
+
+

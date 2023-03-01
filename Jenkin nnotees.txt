@@ -1,0 +1,545 @@
+Jenkin
+UN = Rudra
+PW = Rudra777
+
+https://www.simplilearn.com/tutorials/selenium-tutorial/maven-in-selenium
+
+Github
+EMAIL = mumbarkar.anirudha@gmail.com
+PW = anirudh@2991996
+UN = GitRudra7
+
+Personal Token with repo chk box > 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
+
+
+Creating jobs in Jenkin
+
+1.To run Jenkin website
+  Get to locn D:\Selenium\Jenkins > type cmd there to get into cmd > now type > java -jar jenkins.war > this will launch jenkin website at localhost:8080
+  Login with ur creds (this is after 1st time login)
+  If u close cmd > jenkins will get close
+2.Manage jenkin > global config > set path for jdk and maven thru env varbs
+3.For assigining job to jenkin > New item > enter item name > Free style prj > ok
+4.under general > click advance button > click use custom workspace > copy n paste ur prj workspace path in directory.
+5.under build > add build step > execute windows batch command > in command section u can write any maven cmnds  eg mvn test > save > build now.
+6.To execute test cases periodically after specific time
+  > click prj > configure > buid trigger > build periodically > Schedule (clk help ? to chk how to set schedule)
+  > use ***** to set periodic time as per ur requirement
+  > to stop this periodic execution untic build periodically chkbox and save
+
+  
+
+
+Jenkin pipeline consist of 
+Build > Deploy > Test > Release
+
+Each section has diff. jobs and to create them go as:
+1.New item > Enter item name (section name) > Free style prj > ok > 1.BuildJob 2.DeployJob 3.TestJob 4.ReleaseJob > specify something in buld comment section....thus create 4 jobs n chk them in dashboard.
+2.Link those jobs as => Dashboard > click that job > configure > Build Trigger > Build after other prj are built > Give that job name after which this current job shld b executed > Trigger only if build is stable > aplly n save....
+                        For eg , for deploy job u will configure Build Job in BUild trigger 
+
+3.NOw to chk the buolding or execution process 
+  Open all ur jobs in  diff. tabs > And simply run ur 1st job ie BuildJOb (click builld now ) > all other jobs will be executed one after the other 
+  as per the sequence is set. Refresh ur dashboard to chk result
+
+4.The Build PipeLine in Jenkin is used to automate all the processes , ie here u no need to go and click build now for each jobs/process. Everything will be automated.
+  For this u need to install Build Pipeline Plugin 
+  1. Go on dashboard > On left side > Manage Jenkins > scroll dwn > Manage Plugins > Available > Select Bulid Pipeline Plugin > Install without restart/ Dwnld n install after retart if reqd.
+  2. Click + (near All ) on dashbrd > Build Pipeline View > Give a name > ok > Under Pipeline flow > Select initial job > Under Display Option > Select no. of dislayed builds as per ur no. of builds/jobs > Apply n ok
+  3. Cick run and refresh ur pg to chk the progress > INnprogress is in Blue clour n Successfull gets green n if Build/job is failed then red.
+  4. We hv rerun and console output options at the bottom right corner of each job, if we awant to rerun that job or to view the result for that particular job.
+
+5.U can also hv report of ur pipeline execution by using Delivery Pipline	
+   Click + (near All ) on dashbrd > Delivery Pipeline View > Give a name > ok > Under Pipeline > Components > Add > Select ur initail job > give name > apply n ok.
+
+As all this stuff is present on Jenkin web appln / server , so it is manage and controlled by DevOps team that takes reqd. stuff from Devlopers n QA team and configure them on Jenkins.
+DevOps team takes diff. codes frm diff. devplopers which are placed in common shared reposiotry and create an integrated build.
+Similarly They will take automated scripts / test cases from QA team and will execute to cases against that build.....(here devops perform basic sanity n smoke testing and then the build is given to QA team for testing )
+After basic test is done they will notify all the QA and dev team, then QA will the implement the the build in theire own env and will continue their further testing.
+Again after making the chngs in the scripts (QA) and codes (dev) that willl be uploaded to the common repo. and again devops will chk n so on....this is refered as CI .
+Devops uses Maven to create the build and to run it Jenkin is used. QA team use limited features of MAVEN ike pom.xml, and some other test related cmnds. But devops uses max. features of MAVEN.
+QA dwnld the build from Jenkin into their env.
+Eg dev will work 9am to 5pm > Devops will build n test in eve. > Then next day QA will work on that build > and at the same time dev will work further and at eod will store their codes in common repo n so on...reffred as CI
+QA team dont us MAVEN n JENKIN  100p , but as DevOps team uses our automated scripts using mostly Maven n Jenkin, so some knowledge of maven n jenkin is must
+So QA team must do certain configuration on jenkins related to thei scripts n verify that they r working fine on jenkin for the first time n then later on devops team will handle.
+Exution in Jenkin is headless ie no UI and so it is faster.
+QA dont install Jenkin in their env. Devops will give Jenkin Server Url to QA. Qa will only configure their test cases n all in Jenkins.
+So Devops team basically helps to integrate all te process which in turn enhace the agile process fast. 
+
+Step to setup project in Jenkin
+1.New Item > Item Name > Freestyle project > Build Trigger Tab > Build > Execute windows batch cmnd >build now
+
+Usually we go for maven prj approachh
+1.Chk screenshots
+
+In practise we dont provide local path of our automated scripts in jenkin , as jenkin server is on remote system.
+So we keep our automated scripts n dev their codes in repositories reffred as GIT n GITHUB. And from here (GITHUB) , jenkin will pick up those scripts n codes.
+We hv to specify the genearted GITHUB url in Jenkin to do the same.
+
+GIT > LOCAL REPO. (everyone shld install this git exe in their sys) . Chk sc for configuration n installation steps. Also add git bin locn path in ur env. variables
+      (GIT software is mandatory on the remote system where Jenkin is running)
+GITHUB > REMOTE REPO. (it is a webappl type)
+Codes r 1st stored in individual git repo n at the eod all codes frm diff. gits r pushed to github repo.
+QA works n store codes as > eclipse workspace > git repo > github repo.
+Each QA member can access another members code via github
+
+Script is written in wrkspc > which is 1st passed to staging area > then from there it is passed to git repo > frm git repo it is pushed to github
+
+Below Commands r used in bash.exe (D:\Program Files\Git\bin):
+1.Status = It show the chngs u made in wrkspc and which files r ready to be sent to staging area & git repo
+2.Add = to add the ready files to staging area.
+3.Commit = to send files to git repo frm staging area
+4.Push = to send files to github frm git repo (here we pass generated URL of our github/remote repo along with UN n PW . NOTE THIS URL IS COMMON FOR ALL MEMBERS).
+(WHATEVER CHNGS U WILL DO IN WRKSPACE , then after that u hv to execute those 4 cmnds everytime)
+5.git init =  to create a new local git repo.
+6.git remote add orgin = To create a connection betn local git repo n github repo. (this two git cmnds r used only once in the beginning)
+7.B4 DOING COMMIT we need to execute below cmnds only for 1st time.
+   7.1 git config --global user.name "rudra" (global indicates, this un and email will be applied for all ur repos. so u frm next time onwards u no need to specify this for other repos)
+   7.2 git config --global user.email "ENTER THE EMAIL ID THAT U HV USED TO LOGIN GITHUB REMOTE REPO."
+8.clear =  to clr the screen
+9.PULL =  to get files (usually added by others) frm github to ur local system
+
+steps to txfr file to github:
+1.Go to ur prj in eclipse n copy its wrkspc path in open that in explorer.
+2.ryt clk anywhere in that locn n select git bash here option to open cmd
+3.git init (enter)
+4.git remote add orgin "GENERATED URL OF GITHUB" (entr) > (no msgs will b displayed on cmd console)
+5.git status (UNTRACKED FILES shown in red colour = files which r not part of staging/git repo, TRACKED FILES = this files r presnt in staging /git repo.)
+6.git add -A (-A = means add all files to staging area, to add any specific file specify its name after -)
+7.git status = to chk files r added or not > if added successfully to staging area all files will be turned green.
+8.git config --global user.name "rudra" 
+9.git config --global user.email "ENTER THE EMAIL ID THAT U HV USED TO LOGIN GITHUB REMOTE REPO."
+10.git commit -m "write some comments" > (comments r mandate to show what all chngs u hv done) > if added succesfully to git repo. all files will be in white colour n 
+                                                                                                 a msg showing no. of files chngd will be displayed.
+11.git push -u origin master > used to send all files from git local repo to github remote repo.
+12.Now it will ask for username n pw, so for un & pw = enter ur email id n pw n press entr
+13.Now after 100% txfr > refresh ur github to see all ur files
+
+How to acess other members files frm github
+1.Create a dummy test file (assuming it is the file created by someone else in github) as > under Code tab select Create new file option >
+  > give file name n write dummy comments in edit new file section > click commit new file.
+2.Execute PULL cmnd as :
+  git pull origin master > this will pull only those files frm github which r not present in ur local repo.
+3.Refresh ur prj in eclipse ,there under src/test/java > u will see this new test script file dwnlded frm github.
+  (File in git is directly found in wrkspc)
+
+From 2nd round onwards ie when u do modifcation in existing file or when u add new file to ur wrkspc. execute below cmnds
+1.git status
+2.git add - A
+3.git status
+4.git commit -m "added serach_custm file and modified edit_cust file"
+5.git push -u origin master
+  provide email id n pw
+6.refresh ur github to chk chngs.
+
+How to execute our prj frm github using jenkin
+1.Login jenkin
+2.Create a maven prj n give name to it.> ok
+3.Under Source code management select GIT > provide ur generated github url > dont do anything else 
+4.Under Build > Root POM = pom.xml > Goals n options > clean install > apply n save
+5.Make sure u hv this config setup b4 u run ur build > Under manager jenkin > gobal tool config > 
+        1.Jdk locn
+	2.Git locn > C:\program files\git\bin....(set this path in ur environment system variable)
+	  (Also note that although Jenkin pick script n code files frm github, still it internally uses GIT software),
+          (the installation of GIT software is mandatory on the remote systaem where Jenkin is running(this is taken care by devops team)).
+	3.Set ur GIT locn path in > "Path to git executable" section in jenkin as > C:\program files\git\bin\git.exe
+	4.appl n save
+6.go to dashboard > select ur prj > Build now > u can click on progress bar to chk the logs
+
+
+LIVE MODE PRACTISE
+1.Project AdvSelenium is considered as repo in eclipse
+2.URL generated in github > https://github.com/GitRudra7/day1AdvSel.git
+3.Open wrkspace locn D:\Users\Owner\eclipse-workspace-adv\AdvSelenium > ryt clk n select git bash here
+
+
+*******************************PULL OPREATION***************************************************************
+
+1. SHRADDHU111 is the new file added on github webpage manually under day1AdvSel/src/test/java/day1/
+
+2. Do Git bash here at this locn > d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1
+
+3. abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git pull origin master
+remote: Enumerating objects: 14, done.
+remote: Counting objects: 100% (14/14), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 9 (delta 4), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (9/9), 1.52 KiB | 5.00 KiB/s, done.
+From https://github.com/GitRudra7/day1AdvSel
+ * branch            master     -> FETCH_HEAD
+   a05e8aa..f8c46a4  master     -> origin/master
+Updating a05e8aa..f8c46a4
+Fast-forward
+ dummy_shraddhu                 | 1 +
+ src/test/java/day1/SHRADDHU111 | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 dummy_shraddhu
+ create mode 100644 src/test/java/day1/SHRADDHU111
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$
+
+4.Refresh ur prj in eclipse to chk that file .
+
+****************************PUSH OPERATION FOR THE 1ST TIME***************************************************************
+
+1. Create a new repo in github > SeleniumOops
+2. Go to D:\Users\Owner\ECLIPSE WORKSPACE OLD\SeleniumOops in ur sys explorer > ryt clk > git bash here
+3. 
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops
+$ git init
+Initialized empty Git repository in D:/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops/.git/
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git remote add origin https://github.com/GitRudra7/SeleniumOops.git
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .classpath
+        .project
+        .settings/
+        bin/
+        src/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git add -A
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   .classpath
+        new file:   .project
+        new file:   .settings/org.eclipse.jdt.core.prefs
+        new file:   bin/abstarction/Animal.class
+        new file:   bin/abstarction/Client.class
+        new file:   bin/abstarction/DemoAbstraction.class
+        new file:   bin/abstarction/DemoInterface.class
+        new file:   bin/abstarction/DemoMultipleInheritance1.class
+        new file:   bin/abstarction/DemoMultipleInterface.class
+        new file:   bin/abstarction/Developer.class
+        new file:   bin/abstarction/Dog.class
+        new file:   bin/abstarction/Lion.class
+        new file:   bin/abstarction/c1.class
+        new file:   bin/abstarction/c2.class
+        new file:   bin/abstarction/c8.class
+        new file:   bin/abstarction/c9.class
+        new file:   bin/day1/CallingProtectedMethodType1.class
+        new file:   bin/day1/CallingProtectedMethodType2.class
+        new file:   bin/day1/CallingPublicMethod.class
+        new file:   bin/day1/Theory.class
+        new file:   bin/encapsulation/CallingProtectedMethod.class
+        new file:   bin/encapsulation/CallingPublicMethod.class
+        new file:   bin/encapsulation/DemoEncapsulation.class
+        new file:   bin/encapsulation/DemoPrivate.class
+        new file:   bin/encapsulation/DemoProtected.class
+        new file:   bin/encapsulation/DemoPublic.class
+        new file:   bin/encapsulation/PrivateDemo.class
+        new file:   bin/encapsulation/Salary.class
+        new file:   bin/exception/DemoExecption.class
+        new file:   bin/exception/Task.class
+        new file:   bin/inheritance/Accept.class
+        new file:   bin/inheritance/Addition.class
+        new file:   bin/inheritance/Checker.class
+        new file:   bin/inheritance/Child.class
+        new file:   bin/inheritance/Child1.class
+        new file:   bin/inheritance/DemoHierarchial.class
+        new file:   bin/inheritance/DemoInheritance.class
+        new file:   bin/inheritance/DemoMultilevelIn.class
+        new file:   bin/inheritance/DemoMultilevelInheritance.class
+        new file:   bin/inheritance/DemoRelation.class
+        new file:   bin/inheritance/DemoSingelInheritance.class
+        new file:   bin/inheritance/Employee.class
+        new file:   bin/inheritance/GrandParent.class
+        new file:   bin/inheritance/Greater.class
+        new file:   bin/inheritance/JrTrainer.class
+        new file:   bin/inheritance/Multiply.class
+        new file:   bin/inheritance/Parent.class
+        new file:   bin/inheritance/Parent1.class
+        new file:   bin/inheritance/SrTrainer.class
+        new file:   bin/inheritance/Student.class
+        new file:   bin/inheritance/Substraction.class
+        new file:   bin/inheritance/Task.class
+        new file:   bin/inheritance/Tester.class
+        new file:   bin/polymorphism/Car.class
+        new file:   bin/polymorphism/Child.class
+        new file:   bin/polymorphism/DemoOverride.class
+        new file:   bin/polymorphism/Demooverloading.class
+        new file:   bin/polymorphism/TaskOverride.class
+        new file:   bin/polymorphism/Vehicle.class
+        new file:   bin/variations/ConstructorDemo.class
+        new file:   bin/variations/DemoVariable.class
+        new file:   bin/variations/VariationsInMethods.class
+        new file:   src/abstarction/DemoAbstraction.java
+        new file:   src/abstarction/DemoInterface.java
+        new file:   src/abstarction/DemoMultipleInheritance1.java
+        new file:   src/abstarction/DemoMultipleInterface.java
+        new file:   src/day1/CallingProtectedMethodType1.java
+        new file:   src/day1/CallingProtectedMethodType2.java
+        new file:   src/day1/CallingPublicMethod.java
+        new file:   src/day1/Theory.java
+        new file:   src/encapsulation/CallingProtectedMethod.java
+        new file:   src/encapsulation/CallingPublicMethod.java
+        new file:   src/encapsulation/DemoEncapsulation.java
+        new file:   src/encapsulation/DemoPrivate.java
+        new file:   src/encapsulation/DemoProtected.java
+        new file:   src/encapsulation/DemoPublic.java
+        new file:   src/exception/DemoExecption.java
+        new file:   src/exception/Task.java
+        new file:   src/inheritance/DemoHierarchial.java
+        new file:   src/inheritance/DemoInheritance.java
+        new file:   src/inheritance/DemoMultilevelIn.java
+        new file:   src/inheritance/DemoMultilevelInheritance.java
+        new file:   src/inheritance/DemoRelation.java
+        new file:   src/inheritance/DemoSingelInheritance.java
+        new file:   src/inheritance/Task.java
+        new file:   src/polymorphism/DemoOverride.java
+        new file:   src/polymorphism/Demooverloading.java
+        new file:   src/polymorphism/TaskOverride.java
+        new file:   src/variations/ConstructorDemo.java
+        new file:   src/variations/DemoVariable.java
+        new file:   src/variations/VariationsInMethods.java
+
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git config --global user.name "GitRudra7"
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git config --global user.email "mumbarkar.anirudha@gmail.com"
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git commit -m "This is 1st round of txfr frm git repo to github"
+[master (root-commit) 264495c] This is 1st round of txfr frm git repo to github
+ 91 files changed, 1082 insertions(+)
+ create mode 100644 .classpath
+ create mode 100644 .project
+ create mode 100644 .settings/org.eclipse.jdt.core.prefs
+ create mode 100644 bin/abstarction/Animal.class
+ create mode 100644 bin/abstarction/Client.class
+ create mode 100644 bin/abstarction/DemoAbstraction.class
+ create mode 100644 bin/abstarction/DemoInterface.class
+ create mode 100644 bin/abstarction/DemoMultipleInheritance1.class
+ create mode 100644 bin/abstarction/DemoMultipleInterface.class
+ create mode 100644 bin/abstarction/Developer.class
+ create mode 100644 bin/abstarction/Dog.class
+ create mode 100644 bin/abstarction/Lion.class
+ create mode 100644 bin/abstarction/c1.class
+ create mode 100644 bin/abstarction/c2.class
+ create mode 100644 bin/abstarction/c8.class
+ create mode 100644 bin/abstarction/c9.class
+ create mode 100644 bin/day1/CallingProtectedMethodType1.class
+ create mode 100644 bin/day1/CallingProtectedMethodType2.class
+ create mode 100644 bin/day1/CallingPublicMethod.class
+ create mode 100644 bin/day1/Theory.class
+ create mode 100644 bin/encapsulation/CallingProtectedMethod.class
+ create mode 100644 bin/encapsulation/CallingPublicMethod.class
+ create mode 100644 bin/encapsulation/DemoEncapsulation.class
+ create mode 100644 bin/encapsulation/DemoPrivate.class
+ create mode 100644 bin/encapsulation/DemoProtected.class
+ create mode 100644 bin/encapsulation/DemoPublic.class
+ create mode 100644 bin/encapsulation/PrivateDemo.class
+ create mode 100644 bin/encapsulation/Salary.class
+ create mode 100644 bin/exception/DemoExecption.class
+ create mode 100644 bin/exception/Task.class
+ create mode 100644 bin/inheritance/Accept.class
+ create mode 100644 bin/inheritance/Addition.class
+ create mode 100644 bin/inheritance/Checker.class
+ create mode 100644 bin/inheritance/Child.class
+ create mode 100644 bin/inheritance/Child1.class
+ create mode 100644 bin/inheritance/DemoHierarchial.class
+ create mode 100644 bin/inheritance/DemoInheritance.class
+ create mode 100644 bin/inheritance/DemoMultilevelIn.class
+ create mode 100644 bin/inheritance/DemoMultilevelInheritance.class
+ create mode 100644 bin/inheritance/DemoRelation.class
+ create mode 100644 bin/inheritance/DemoSingelInheritance.class
+ create mode 100644 bin/inheritance/Employee.class
+ create mode 100644 bin/inheritance/GrandParent.class
+ create mode 100644 bin/inheritance/Greater.class
+ create mode 100644 bin/inheritance/JrTrainer.class
+ create mode 100644 bin/inheritance/Multiply.class
+ create mode 100644 bin/inheritance/Parent.class
+ create mode 100644 bin/inheritance/Parent1.class
+ create mode 100644 bin/inheritance/SrTrainer.class
+ create mode 100644 bin/inheritance/Student.class
+ create mode 100644 bin/inheritance/Substraction.class
+ create mode 100644 bin/inheritance/Task.class
+ create mode 100644 bin/inheritance/Tester.class
+ create mode 100644 bin/polymorphism/Car.class
+ create mode 100644 bin/polymorphism/Child.class
+ create mode 100644 bin/polymorphism/DemoOverride.class
+ create mode 100644 bin/polymorphism/Demooverloading.class
+ create mode 100644 bin/polymorphism/TaskOverride.class
+ create mode 100644 bin/polymorphism/Vehicle.class
+ create mode 100644 bin/variations/ConstructorDemo.class
+ create mode 100644 bin/variations/DemoVariable.class
+ create mode 100644 bin/variations/VariationsInMethods.class
+ create mode 100644 src/abstarction/DemoAbstraction.java
+ create mode 100644 src/abstarction/DemoInterface.java
+ create mode 100644 src/abstarction/DemoMultipleInheritance1.java
+ create mode 100644 src/abstarction/DemoMultipleInterface.java
+ create mode 100644 src/day1/CallingProtectedMethodType1.java
+ create mode 100644 src/day1/CallingProtectedMethodType2.java
+ create mode 100644 src/day1/CallingPublicMethod.java
+ create mode 100644 src/day1/Theory.java
+ create mode 100644 src/encapsulation/CallingProtectedMethod.java
+ create mode 100644 src/encapsulation/CallingPublicMethod.java
+ create mode 100644 src/encapsulation/DemoEncapsulation.java
+ create mode 100644 src/encapsulation/DemoPrivate.java
+ create mode 100644 src/encapsulation/DemoProtected.java
+ create mode 100644 src/encapsulation/DemoPublic.java
+ create mode 100644 src/exception/DemoExecption.java
+ create mode 100644 src/exception/Task.java
+ create mode 100644 src/inheritance/DemoHierarchial.java
+ create mode 100644 src/inheritance/DemoInheritance.java
+ create mode 100644 src/inheritance/DemoMultilevelIn.java
+ create mode 100644 src/inheritance/DemoMultilevelInheritance.java
+ create mode 100644 src/inheritance/DemoRelation.java
+ create mode 100644 src/inheritance/DemoSingelInheritance.java
+ create mode 100644 src/inheritance/Task.java
+ create mode 100644 src/polymorphism/DemoOverride.java
+ create mode 100644 src/polymorphism/Demooverloading.java
+ create mode 100644 src/polymorphism/TaskOverride.java
+ create mode 100644 src/variations/ConstructorDemo.java
+ create mode 100644 src/variations/DemoVariable.java
+ create mode 100644 src/variations/VariationsInMethods.java
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$ git push -u origin master
+Enumerating objects: 110, done.
+Counting objects: 100% (110/110), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (110/110), done.
+Writing objects: 100% (110/110), 35.89 KiB | 765.00 KiB/s, done.
+Total 110 (delta 17), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (17/17), done.
+To https://github.com/GitRudra7/SeleniumOops.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/ECLIPSE WORKSPACE OLD/SeleniumOops (master)
+$
+
+4.Since u hv already signed in So it is now directly pushing to github and not asking for credentials.
+5.refresh github repo to chk files.
+
+
+***************************PUSH OPERATION AFTER MODIFICATION IN REPOS*************************************************************
+
+
+
+1.Added a new file 2ND round on github.txt in  this locn on local sys > /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1
+
+2.Ryt clk n select git bash here in this locn > /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1
+
+3.
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        2ND round on github.txt
+        ../../../../target/test-classes/day1/SHRADDHU111
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git add -A
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   2ND round on github.txt
+        new file:   ../../../../target/test-classes/day1/SHRADDHU111
+
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git commit -m "This is 2nd round adding new file"
+[master 24a1090] This is 2nd round adding new file
+ 2 files changed, 2 insertions(+)
+ create mode 100644 src/test/java/day1/2ND round on github.txt
+ create mode 100644 target/test-classes/day1/SHRADDHU111
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$ git push -u origin master
+Enumerating objects: 18, done.
+Counting objects: 100% (18/18), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (10/10), 832 bytes | 416.00 KiB/s, done.
+Total 10 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), completed with 6 local objects.
+To https://github.com/GitRudra7/day1AdvSel.git
+   f8c46a4..24a1090  master -> master
+branch 'master' set up to track 'origin/master'.
+
+abc@DESKTOP-U8N41C8 MINGW64 /d/Users/Owner/eclipse-workspace-adv/AdvSelenium/src/test/java/day1 (master)
+$
+
+4.Refresh ur locn on github > day1AdvSel/src/test/java/day1/ > to chk that added file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,180 @@
+	JMETER---> JAva Based		Performance Testing 
+	TOOL--->	JMeter--->Open Source--->Free to use
+		HP Performance Tester,Borland Silk performer,RAtion Performance Tester,Load Runner-------> Commercial Tool
+	
+	Stefano Mazzochi--->Apache JSErv=====>[Apache Tomcat]==> Enhanced GU & added more features fot testing....
+
+	Features of JMeter--->
+	
+	1]	Open Source license---->JMeter is totally free allows developere use the source code for developemnt
+	2]	Friendly GUI--->Jmeter is extremely easy to use & does not take time to get familiar with
+	3]	Platform Independent----> JMeter is 100% pure JAva desktop app.So it can run on multiple platforms
+	4]	Fully multithreading fraMework---->JMeter allows concurrent & simultaneous sampling of different functions
+				by separate thread group (Different groups are created in Jmeter to work distinctly on different frameworks or protocols like http, JDBC etc.)
+	5]	Visualize test result---->Test result can be viewed in different format such as chart,table,tree & log files
+	6]	Easy Installation--->Just copy & run *.bat file to for JMeter .No need of installation
+                                     (Dwnld > extract zip to ur locn > open apache Jmetere folder > bin > open Jmeter (Windows batch file) > cmnd promt will run > Jmeter appln will open
+				     (For JDBC, copy *mysql-connector-java-8.0.19* JAR file and paste it in lib folder that is within ur apache Jmeter folder > then close and reopen Jmeter)
+	7]	High extensible---->JMeter supports visulalization plugins allow to extend testing
+	8]	Multiple testing strategy--->JMeter supports testing strategy such as load testing, distributed testing
+	9]	Support Multi protocol====> HTTP,JDBC,FTP,SMTP,JMS
+	10]	Record & Playback--->Record user activity on a browser for web application in Jmeter
+
+	Working of JMeter====>JMeter simulate a group of users sending request to target server & returns statistic data 
+				and show the performance of target server/app through graphical diagram.
+
+	Test Plan----> is where we add elements required for JMeter Test.It stores all the elements[like thread group,etc] & their corresponding
+			setting required to run Test.
+
+	Thread Groups---> Collection of Thread[Users].One user using the application under test.One real user request to the server
+	
+	RampUp---->period tells JMeter how long to delay before starting next user[EG---->  10 user & 10 RampUp period---> 10/10----> delay starting user would be 1 second]
+
+	Loop Count----> One user connecting to target server 10 times (at a same time).	
+
+	Sampler--->Sampler tell JMeter to send request toa server & wait for a response
+	
+	Listener---->facilitates viewers to view samplers result in a form of table,graphs , trees,,log files.Listener offers means of collect, save, & view result of a test plan
+
+			& store in XML format OR CSV format
+
+
+	Latency--->is a difference between time when request was send & time when response has started to be received
+
+.
+	Assertion----> Assertion in JMeter is used to validate response of the request, that we have to sent to server.
+		Assertion is a process where we verify expected result with the actual result of the request at run time.
+
+	Duration Assertion===> is used to verify that server response is received within specified time or not.
+				It will mark test as failed if response takes longer time duration than 
+				given time
+
+	Response Assertion===>use to add compare string pattern against one or many values of server response
+
+	Size Assertion===>used to verify that server response contains expected number of bytes or not
+
+	JDBC Request---->Database load testing involves reali life user load for target database application
+			It helps determine how databse application behaves when multiple user hits it
+
+	Throughput===>is the most important parameter.It represents the ability of server to handle heavy load
+			The higher THROUGHPUT is, the better is the server performance
+	
+	Deviation===>Deviation should be minimum
+
+       Recording > 1. ryt clk test plan > ADD > non-test element > HTTPS Test Script Recorder
+		   2. Open ur browser > settings > search xy > proxy settings > (you will get switch to proxy server setting in ur pc)
+                   3. Turn off  automatic & turn on manual > set addr = localhost, port = 1234
+                   4. Open HTTPS Test Script Recorder > give port no. of ur manual proxy server ie 1234
+                   5. On the same screen ,Under Test plan creation tab> Target controller > select ur thread group where u will store ur steps.
+		   6. Under Requests Filtering tab > URL Patterns to exclude > click Add suggested excludes. (u can add | txt there).
+		   7. Click on start > perform steps like open ur browser > type url > enter credentials > click login > click logout etc.
+		   8. Click stop after performing all steps.
+		   9. Now u can see different steps will appear under ur thread group viz i=1, i-7, i-8 , /access-logout.php etc.
+                   10. Create a view listner tree within this group where u can run ur steps, their u will see all the steps that u hv implemented will get execute.
+
+	
+	Sampler Result > It shows details w.r.t Different times, data sizes and response msgs or codes.
+        Request > what request u hv sent to the server
+        response > what response we hv recived from the server.
+   
+  	Parameterisation In Jmeter > Since for a load test we add multiple users in a thread group,
+                                     so we can also save the data that each user will pass to the web server in an excel file (with CSV format).
+				     This can be achived by Parameterisation In Jmeter concept.
+				     The concept of Parameterization is to Read the data from file & run in test plan.
+
+		Steps		1.Create an excel file and store different usernames and passwords > save as csv format
+                       		2.Create a thread group (1st for single user record) named Parameterised recording
+				3.Ryt click ur thread grp > ADD > config element > CSV Data set config
+				4.Open CSV Data set config > Browse ur csv file > Pass varbs names as comma seperated u,p > cntrl + s
+				5.Repeat above Steps 1 to 9 of Recording
+				6.Now within ur grp click on a step where u will see ur entered username and pw.
+				7.Double click those values of username and password fields and change them to ${u} and ${p} > cntrl + s
+				8.Go to ur Thread grp > set no. of users = no. of datas u hv stored in that excel sheet > cntrl + s
+				9.Create a view listner tree within this group and run
+				10. Now within view result tree, click on ur steps of user input datas, there on right click > Top Request Tab & bottom HTTP tab
+				11. There u can see individual data passed by excel.
+				12. Red cloured step shows invalid entered data while green step will show valid entered data 
+
+	JDBC Connection and rquest > Used for load testing of a database server, to chk the behaviour of db server when multiple users try to use it simultaneously.
+
+	Steps For JDBC connection , request and load test.
+        			1.Include JDBC jar files in lib folder of JMETER
+				2.Create JDBC thread grp > ryt click > ADD > Config element > JDBC Connection Configuration.
+				3.Within JDBC Connection Configuration.
+                         		1.Assign variable name for pool (u may chng name of configuration)
+					2.In DB connection configuration give DB url > Jdbc:mysql://148.72.215.41:3306/testingdb
+					3.JDBC Driver class as > mysql
+					4.Username & password
+				4.Ryt click JDBC Thread group > ADD > Sampler > JDBC request
+					1.Give Variable name as assigned in config.
+					2.Select ur type of query u want to perform on db
+					3.Type the query below > cntrl + s
+					4.U cannot write multiple query in same JDBC request u hv to create another JDBC request for another query.
+					5.Neither u can perform same query on multiple tables in a db within a same JDBC request.
+				5.Create a View result tree and Run here.
+
+	Kindly do the Stepping Thread group and Ultimate Thread group concepts (studied, just need to be implemented)
+
+	Finally Practise all concepts on Jmeter.
+
+======================================================================================================================================
+How to determine breaking point of my application when performance testing from jMeter
+======================================================================================================================================
+
+First you need to define what the "breaking point" is. There are a number of possibilities. 
+The obvious problem would be if the web server itself crashes and stops responding, 
+but there are a number of problems that can occur well before that point that in most cases would still be considered "broken".
+
+Some other problems that could tell you your application is "broken":
+
+Response times become unreasonably long. A general rule of thumb is if a web page takes longer than 6 seconds to load, from a user perspective, 
+they will lose interest and become impatient.
+Some (but not all) requests begin returning non 200 response codes. You will need to set up validations for your responses in jmeter to watch for
+non 200 response codes.
+The web server crashes and restarts automatically causing a few requests to fail, but all existing sessions to immediately expire.
+None of the Jmeter listeners will tell you anything about the health of your application, it just tells you about some of the symptoms such as 
+slow response times, or error response codes. In order to actually monitor the health of the web server, 
+you need to monitor the system it is running on to watch memory usage, cpu usage, network usage, disk IO, etc. 
+Many tools like Tomcat have some performance counters you can tap into and get more information as well.
+
+To actually determine where you application breaks is a blurry line as well. If you immediately pound a server with 1000 requests, it could break, 
+but if you ramp up slowly to 1000 threads it may handle it. In addition, you may be able to run 100 threads just fine, 
+but if you run 100 threads for an hour straight, it may break. Again, the most obvious and the most common scenario is that you run a certain number of threads
+and it breaks when you reach some threshold.
+
+To determine where that threshold is, you can often use a step load pattern where you start at some number of threads, 
+and every X time period increase the threads by Y. So for example, every 10 minutes I might increase threads by 5, 
+and I might run that test overnight and come back in the morning to see how far it got before the system "broke". 
+The closest out of the box functonality in Jmeter to do this kind of load, would be the "ramp up". 
+You would need to put the number of threads up to something very large (number depends on the project), 
+maybe 1000+ and change the ramp up time to something very large like 43200 (12 hours) so that it continually ramps up until the application breaks.
+
+Another option would be do multiple runs where you manually increase the number of threads for each run. For Jmeter, 
+I would actually prefer creating or using a plugin to do the step up load since their out of the box functionality does not provide an ideal solution.
+
+
+
+
+
+				
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

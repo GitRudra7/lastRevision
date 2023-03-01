@@ -1,0 +1,70 @@
+System.setProperty("webdriver.chrome.driver", ".\\chromedriver.exe");/....... setprop mthd works on key value pair in sys class
+        WebDriver wd = new ChromeDriver();....obj of cd
+        wd.manage().window().maximize();..........called sub mthds in manage mthd
+        wd.get("https://opensource-demo.orangehrmlive.com");
+		
+		
+=====================
+
+FindElement():
+¸ This method is used to find a web element in the current document of driver instance based
+on the node properties.(ie using locators)
+¸ the following are the sub methods that findElment supports
+ sendKeys – to enter text
+ click – to perform click operation
+ clear – to clear the existing contents
+ isDisplayed – to verify the existence – true/false
+ isEnabled – to verify if the field is enabled – true/false
+ isSelected – if the checkbox is selected – true/false
+ getAttribute – to get the attribute value/property value.
+ 
+ 
+===================
+Locators > uniquely identifies webelements on webpage
+8 TYPES
+
+WebElement element = driver.findElement(By.locatorType("Attribute value"));
+where,
+
+driver ➨ Object reference variable of the WebDriver object.
+WebElement ➨ Return type of the findElement() method.
+element ➨ Variable used to store the returning web element.
+By ➨ By is a class that extends java.lang.Object. It provides a mechanism/locator methods that is used to locate elements within a document.
+
+ 
+=============		
+get(String args)
+The above Selenium command launches a new browser window and navigates to the specified URL. 
+The command accepts a single string type parameter, which is usually the URL of the application under test. 
+====
+getCurrentUrl()
+As the name suggests, this Selenium command gives us the URL of the page currently loaded in the browser.
+
+String url = driver.getCurrentUrl();		
+
+======
+getTitle()
+If you want to retrieve the title of the currently opened web page, you can use the above command.
+
+Syntax:
+
+1
+String j = driver.getTitle();
+
+============
+getTagName() method to extract the tag name of that particular element
+============
+
+navigate()
+        This method is also used to launch a url in the driver instance
+Speed: navigate() is faster than get() because navigate() does not wait for the page to load fully or completely.
+Execution: get() method execute next line of code once the page is completely loaded but  navigate() method does not wait for loading of page, 
+		it executes once the url hit into searche-box.
+
+ wd.get("https://opensource-demo.orangehrmlive.com");
+ wd.navigate().to("https://talentzing.com/");
+ driver.navigate().back();  
+ driver.navigate().forward();  
+ driver.navigate().refresh();  
+ 
+======================== 

@@ -1,0 +1,304 @@
+1.Maven is basically a build tool , as it is used to build a software like installing reqd libraries and resources, writing piece of code or test scripts , 
+  compiling and running them , then packaging the prj, installing and deploying this prj into another environment , forming prj. documentations etc. This is reffered    
+  as Maven build life cycle as shown below
+
+  1a)   Maven build life cycle
+	1.1 Validate the code
+	1.2 Compile the code
+	1.3 Test the code
+	1.4 Package = Package the code into jar or any other format pom or war to use it somewhere else or to handover to someone
+	1.5 Integaration test
+	1.6 Verify 
+	1.7 Install = By default ur prj will be converted to a jar file and will be saved or installed into ur local repository only
+	1.8 Deploy = Deploying or Implementing ur prj into remote repository so that it can be used by other projects.
+	
+  1b)  Executing any of this maven phase directly (Ryt click pom.xml > Under Run as > Maven Build) will lead to default execution of all the previous phases 
+       in that life cycle.
+
+    > Their it will ask u to specify GOALS releated to ur prj, ie what exactly the action u want to perform on ur prj viz CLEAN or COMPILE or TEST or INSTALL the prj etc. 
+           (this clean, compile, install, test etc are different maven commands), after specifying cmnd click RUN.
+	> If u r compiling but u get an error like " NO COMPILER PRESENT ON THIS ENVIRONMENT, Perhaps u r running on a JRE rather than JDK ?" then it means u hv to 
+	  use JRE which is present in JDK, but u r using direct JRE. So to resolve this go to ,
+	> Windows > Preferences > Java > Installed JRE's (there u will see only JRE without JDK) > ADD > Standard VM > next > Browse Directory for JRE home > C:\Program Files\Java\jdk1.8.0_333 > Finish (once all jre libs are fetched)
+	> Now select the chk box with jdk option > Apply > Apply n close > Once done with building ,update ur project > Ryt clk prj > Maven > Update Prj > now u can finally compile. 
+	> Always remember to update ur prj after building or doing any chngs in the prj.
+	> Clean is used to clean the temp files that are present in the target folder within ur prj.
+
+	> Install cmnd will generate a jar file of ur prj. (or Ryt click pom.xml > Under Run as > Maven Install), this will create a jar file after successfull BUILD,
+          Refresh ur project or Target folder after BUILD SUCCESS. Example of such Executable JAR file is at below locn....
+		** C:\Users\Owner\eclipse-workspace\PractiseAdvSel\target > PractiseAdvSel-0.0.1-SNAPSHOT (file type will be Executable JAR file)
+
+	> U can also execute two or more cmnds > Just specify those cmnds in ur goals filed with spaces betwn them.
+	> After execution refresh ur Prj or target folder to see ur jar file. It can be shared to be used by other prjs.
+  
+2.Maven has POM.xml file as key factor that manage all this dependencies n plugins. 
+
+3A.The adv of using maven is that, 
+
+  3.1 ) In normal java projects without maven, we hv to dwnld the diff. jar files reqd. , from diff. websites and 
+  include those jar files manually and seperately for each projects,
+  (viz > ryt click prj > build path > config build path > libraries tab  > add ext jar files), whereas in maven whichever
+  jar files dependencies u reqd ie libraries , u can write them into POM.xml file, and save it, once saved it will start building (dwnld frm web to local repo--path of the same is saved in environment variables in ur system) your
+  maven dependencies folder (u will see on left side once building is done). Within this maven dependencies folder all ur
+  reqd jar files will be appeared , which can be used in any projects, ie now u dont need to add jar files seperately for
+  each of  ur projects.
+
+  ** Note even if u hv included same maven dependencies in multiple maven projects, still only one copy will be present at ur local repository (u can verify this,
+     by comparing the paths of common jar files in any two projects) ie multiple .m2 folders will not be created for each maven project.
+
+  ** C:\Users\Owner\.m2\repository........This is that only one path in ur local sys where all ur maven dependencies will get stored.
+
+  (RND > CAN WE USE MAVEN DEPENDENCIES OF ONE PROJECT INTO ANOTHER, ie WITHOUT CREATING MAVEN DEPENDENCIES SEPERATELY INTO THAT ANOTHER PRJ> CHK PT. 16). 
+
+  3.2) Also with maven u can change the version of ur dependencies as per ur requirements in POM.xml , this will 
+  save u from following lengthy procedure of deleting old version jars n adding new ones for each project.
+  Upgrading version will replace older version files with newer ones.
+
+  3.3) Again maven provides us with the proper structure to manage our projects, ie we hv src/main/java and src/main/resources folders
+  for developers to manage their codes and resources, similarly src/test/java and src/test/resources for testers to manage their
+  testing scripts and their releated required resources (src/test/java and src/test/resources can also be used by developers to write their unit testing test cases).
+  The other folders ie src and target are used by maven at the run time to store the temporary files.
+
+4.POM.xml basically hv two parts >>> a. Dependencies = Used to dwnld 3rd party libraries (jar files) reqd for a prj. & b. Plugins = Provides configuration stuff reqd by the prj.(like prj compiler etc.)
+
+5.Saving and building dependencies in POM.xml means we are getting those dependencies from central repository (web) and 
+  storing them into local repositiory (within .m2 folder) on our local system. Now whenever ur prj requires those 
+  dependencies, maven will 1st chk them into ur local sys, and if not found then will look on central. And
+  finally on remote repository which are also present on web, if missing in central. (RND this)
+
+6.An artifact is a file, usually a JAR, that gets deployed to a Maven repository. 
+  A Maven build produces one or more artifacts, such as a compiled JAR and a "sources" JAR.
+  Each artifact has a group ID (usually a reversed domain name, like com.example.foo or in.name or org.name etc), an artifact ID (just a name or rather a project name), and a version string.
+  
+      		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+  	 <dependency>
+    		<groupId>org.testng</groupId>
+    		<artifactId>testng</artifactId>
+    		<version>7.4.0</version>
+    		<scope>test</scope>
+	</dependency>
+
+7.Note as ur pom.xml also has its own groupId , artifactId and its version, so u can also convert it into a jar/pom file n can use in any other
+ project as per ur need.
+  Just as for the reqmnt. specified in PT.16
+
+8.When working on a project, the external jars that we import for multiple functions are known as project dependencies.
+  Example:- In eclipse to execute the selenium web driver program we need selenium jars.
+  Maven has built-in dependency management. We can just specify in the POM file what external libraries the project depends on, and which version.
+  Maven would download them and puts them in your local Maven repository. (when u save POM.xml, maven starts building ie downloading those jar files)
+  If these external libraries need other libraries, then Maven would download their dependency libraries into your local Maven repository as well. 
+  We can specify dependencies inside the dependencies element in the POM file. And in similar way Plugins can also be stored. 
+
+9. Using maven we can also generate reports and project related documentation.
+
+10. Maven also support an imp feature of Packaging the project, so we dont need to provide entire hardcoded prj to client.
+
+11. How maven works internally
+	> As soon as we create a maven prj, maven creates a maven repository on our local system.
+	> Now when we write dependencies in pom.xml and save them for the first time, maven will dwnld the specified dep from the remote repository 
+          (maven repository.com website has all the dependencies stored) and will store them at ur local system and 
+          from next time onwards maven will 1st chk ur local system for those jar files.
+	> Dependencies = dwnls all the libraries ie jar files reqd for the prj and stores them into local system.
+	> Plugins = All the prj related configurations are stored in plugins.
+		Like to complie entire prj u can use maven compiler plugin, then to run prj u can use maven surefire plugin, similarly some plugiins are used to
+		package our entire prj, then to start or stop our webserver etc. Also maven uses inbuid plugins to perform certain actions.
+
+12. Archetypes is a option u can see at the time of creation of a new maven prj. , which is nothing but diff. types of project templates available that u can use as per 
+    ur prj requirements like testng , springboot appln etc. Usually we opt for default structure so we dont select archetypes, so simply select a chk box of create a 
+    simple prj. 
+13. Group id =  name of company or organization with some exentions like in. or org. etc
+14. ArtifactId = Ur Prj name
+15. Default Packaging is jar file, other optns are pom or war files.
+16. U can also inherit the maven dependencies from another projectA into ur current prjB. but for that u need to specify the grpid, artifact id and 
+version of that
+    prjA into Parent Project section that appears at bottom when u r creating a new maven prjB. But for this the parent project must be pacakaged with POM type 
+    and not with jar or war. 
+
+	16A) As u can see dummy1 prj has an error in POM.xml file which says the Parent maven prj (PractiseAdvSel) must have POM as PACKAGING type, but it is of jar type.
+	16B) Also u can see there is no error in POM.xml file of dummy3 prj, as its Parent maven prj (dummy2) has a POM type of PACKAGING and not jar.
+	16C) Also if the prj has POM as its PACKAGING type ,then u will hv only POM.xml file avlbl for that prj, no other folders will be avlbl like a normal jar PACKAGING type maven prj.
+	     U can see this in dummy2 prj.
+	16D) From this we can conclude that , we can create a common prj with POM as its PACKAGING type , and then we can include all the dependencies and plugins,
+             in its POM.xml file, and then we can make this common prj as a parent of all other projects who requires those dependencies.
+             Now when u will create any jar PACKAGING type prj, with this common prj as its parent prj,immeadiately the maven dependencies folder will be included,
+             in that child prj. So here u dont need to include the dependencies and plugins seprately in the POM.xml of that child project.
+	16E) U may select a diffrent prj version for child maven project than the one used for parent prj, just to avoid warning.
+	     
+17. If u use WebDriverManager dependency, then u dont need to specify the webdriver exe path in ur code, just write >>>> WebDriverManager.chromedriver().setup();
+
+18. TestNG concept >>
+	Suppose u hv a Package and within that package u hv written diff. TestNG test cases by forming different TestNg classes, and now u want to run all this test cases,
+	then simply ryt clk ur package > testNG > Convert to TestNG > this will create a testng XML file in ur prj, which u can run to execute all ur test cases.
+	And here if u wanna run selected test cases, then u can use grouping concept.
+
+19. U can execute ur test cases via TestNG.xml file and also by POM.xml file. Refresh ur folders (target and test output) once done with execution to see reports.
+	For POM.xml , u can see the execution report under target folder > sure-fire reports > index.html > rytclk n open with System Editor
+	For TestNG.xml reports go to > test outputs folder > index.html > rytclk n open with System Editor
+ 
+   ** Note if u run POM.xml as Maven Test, without including below <configuration> syntax part between <plugin></plugin> section , then ur test cases will not be
+      executed by pom.xml
+
+	 <configuration>
+          	<suiteXmlFiles>
+          		<suiteXmlFile>testng.xml</suiteXmlFile>........................//here specify the name of ur testng.xml file.
+          	</suiteXmlFiles>
+          </configuration>
+
+  ** Below is ur full plugin syntax
+   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M7</version>
+          <configuration>
+          	<suiteXmlFiles>
+          		<suiteXmlFile>testng1.xml</suiteXmlFile>
+			<suiteXmlFile>testng2.xml</suiteXmlFile>
+			<suiteXmlFile>testng3.xml</suiteXmlFile>.............//MULTIPLE TESTNG.xml FILES can also be include.
+          	</suiteXmlFiles>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+20.To run all the TestNG test cases using maven POM.xml u must hv maven surefire plugin included in ur POM.xml file
+
+21. There is no need to update ur prj everytime u make chngs in ur pom.xml file, just save the pom.xml file and refresh ur prj.
+
+22. This EVERYTHING we studied by now is using MAVEN on ECLIPSE, we can also use MAVEN on windows cmd as well.
+
+23.Steps to run maven prj using cmd
+	1.Set ur eclipse workspace path on cmd > cd ur wrkspace path.....(rytclk prj > show in > sys explorer > copy ur wrkspac path)
+	2.To clear all stmts frm cmd > cls
+	3.To chk all files on wrkspace path > dir
+	4. wrkspace path > mvn clean 
+	5. wrkspace path > mvn validate
+	6. wrkspace path > mvn compile
+	7. wrkspace path > mvn test
+	8. wrkspace path > mvn package.....will convert ur prj to jar file
+	9. wrkspace path > mvn install.....will install ur prj (which is now converted to jar file ) to local repo. (ie 1st packaging is done and then installation)
+	10. wrkspace path > mvn deploy.....used to deploy ur jar or war file to some other remote repo. like jenkins,tomcat etc.
+                                           (it requires source, target locn to be set, else will BUILD FAILURE error will occur)
+
+Below is example of maven prj exection on cmd....
+
+C:\Users\Owner> cd C:\Users\Owner\eclipse-workspace\PractiseAdvSel
+C:\Users\Owner\eclipse-workspace\PractiseAdvSel>dir
+ Volume in drive C is OS
+ Volume Serial Number is 8259-3991
+
+ Directory of C:\Users\Owner\eclipse-workspace\PractiseAdvSel
+
+17-07-2022  15:15    <DIR>          .
+17-07-2022  15:15    <DIR>          ..
+17-07-2022  15:51             1,515 .classpath
+17-07-2022  14:44               566 .project
+17-07-2022  14:44    <DIR>          .settings
+17-07-2022  16:01             1,593 pom.xml
+17-07-2022  14:44    <DIR>          src
+17-07-2022  16:37    <DIR>          target
+17-07-2022  15:41    <DIR>          test-output
+17-07-2022  15:39               361 testng.xml
+               4 File(s)          4,035 bytes
+               6 Dir(s)  874,930,806,784 bytes free
+
+C:\Users\Owner\eclipse-workspace\PractiseAdvSel>mvn test
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ----------------------< in.rudra:PractiseAdvSel >-----------------------
+[INFO] Building PractiseAdvSel 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ PractiseAdvSel ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ PractiseAdvSel ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ PractiseAdvSel ---
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ PractiseAdvSel ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- maven-surefire-plugin:3.0.0-M7:test (default-test) @ PractiseAdvSel ---
+[INFO] Using auto detected provider org.apache.maven.surefire.testng.TestNGProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running TestSuite
+Rudra
+1   a
+2   b
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting ChromeDriver 103.0.5060.53 (a1711811edd74ff1cf2150f36ffa3b0dae40b17f-refs/branch-heads/5060@{#853}) on port 59492
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Jul 18, 2022 5:25:56 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected upstream dialect: W3C
+Jul 18, 2022 5:26:03 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+INFO: Found exact CDP implementation for version 103
+Actual Title is > OrangeHRM
+Starting ChromeDriver 103.0.5060.53 (a1711811edd74ff1cf2150f36ffa3b0dae40b17f-refs/branch-heads/5060@{#853}) on port 63271
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Jul 18, 2022 5:26:26 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected upstream dialect: W3C
+Jul 18, 2022 5:26:26 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+INFO: Found exact CDP implementation for version 103
+Execution completed !!!!
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 322.357 s - in TestSuite
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:44 min
+[INFO] Finished at: 2022-07-18T17:28:51+05:30
+[INFO] ------------------------------------------------------------------------
+
+C:\Users\Owner\eclipse-workspace\PractiseAdvSel>
+
+
+1.We can use below mthd t run our test case
+  	>TestNg.xml (requires eclipse)
+	>Maven pom.xml 
+	>Maven CLI (cmnd line Interface)
+	>run.bat
+	>Using Jenkins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
