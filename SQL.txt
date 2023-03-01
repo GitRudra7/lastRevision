@@ -18,7 +18,7 @@ SELECT column_name1, column_name2, .…, column_nameN
     [ WHERE condition ]  
     [ ORDER BY order_column_name1 [ ASC | DESC ], .... ];  
 	
-	...................
+	...................    ....
 	
 	
 
